@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+    <com.google.android.material.appbar.AppBarLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+        <androidx.appcompat.widget.Toolbar android:id="@+id/toolbar" android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize" app:title="قائمة الأرباح والخسائر"/>
+    </com.google.android.material.appbar.AppBarLayout>
+    <ScrollView android:layout_width="match_parent" android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical" android:padding="16dp">
+            <!-- Date filter -->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:layout_marginBottom="16dp">
+                <TextView android:id="@+id/tv_pl_from_date" android:layout_width="0dp"
+                    android:layout_height="wrap_content" android:layout_weight="1"
+                    android:padding="12dp" android:background="@drawable/bg_outlined_field"
+                    android:textSize="14sp" android:layout_marginEnd="8dp"
+                    android:text="من تاريخ" android:gravity="center" android:clickable="true" android:focusable="true"/>
+                <TextView android:id="@+id/tv_pl_to_date" android:layout_width="0dp"
+                    android:layout_height="wrap_content" android:layout_weight="1"
+                    android:padding="12dp" android:background="@drawable/bg_outlined_field"
+                    android:textSize="14sp" android:text="إلى تاريخ" android:gravity="center"
+                    android:clickable="true" android:focusable="true"/>
+            </LinearLayout>
+            <com.google.android.material.button.MaterialButton android:id="@+id/btn_pl_refresh"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="تحديث البيانات" android:layout_marginBottom="16dp"/>
+
+            <!-- P&L Table -->
+            <com.google.android.material.card.MaterialCardView android:layout_width="match_parent"
+                android:layout_height="wrap_content" app:cardCornerRadius="12dp" app:cardElevation="4dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="vertical" android:padding="16dp">
+                    <TextView android:text="الإيرادات" android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:textSize="16sp"
+                        android:fontFamily="sans-serif-bold" android:textColor="#1565C0"
+                        android:layout_marginBottom="8dp"/>
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal" android:layout_marginBottom="6dp">
+                        <TextView android:text="إجمالي المبيعات" android:layout_width="0dp"
+                            android:layout_height="wrap_content" android:layout_weight="1" android:textSize="14sp"/>
+                        <TextView android:id="@+id/tv_pl_total_sales" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:textSize="14sp"
+                            android:textColor="#2E7D32" android:fontFamily="sans-serif-medium"/>
+                    </LinearLayout>
+                    <View android:layout_width="match_parent" android:layout_height="1dp"
+                        android:background="#E0E0E0" android:layout_marginVertical="8dp"/>
+                    <TextView android:text="التكاليف" android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:textSize="16sp"
+                        android:fontFamily="sans-serif-bold" android:textColor="#E53935"
+                        android:layout_marginBottom="8dp"/>
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal" android:layout_marginBottom="6dp">
+                        <TextView android:text="إجمالي المشتريات" android:layout_width="0dp"
+                            android:layout_height="wrap_content" android:layout_weight="1" android:textSize="14sp"/>
+                        <TextView android:id="@+id/tv_pl_total_purchases" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:textSize="14sp" android:textColor="#E53935"/>
+                    </LinearLayout>
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal" android:layout_marginBottom="6dp">
+                        <TextView android:text="المرتجعات" android:layout_width="0dp"
+                            android:layout_height="wrap_content" android:layout_weight="1" android:textSize="14sp"/>
+                        <TextView android:id="@+id/tv_pl_total_returns" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:textSize="14sp" android:textColor="#E53935"/>
+                    </LinearLayout>
+                    <View android:layout_width="match_parent" android:layout_height="1dp"
+                        android:background="#E0E0E0" android:layout_marginVertical="8dp"/>
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal" android:layout_marginBottom="12dp">
+                        <TextView android:text="مجمل الربح" android:layout_width="0dp"
+                            android:layout_height="wrap_content" android:layout_weight="1"
+                            android:textSize="15sp" android:fontFamily="sans-serif-medium"/>
+                        <TextView android:id="@+id/tv_pl_gross_profit" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:textSize="15sp" android:fontFamily="sans-serif-bold"/>
+                    </LinearLayout>
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal" android:layout_marginBottom="6dp">
+                        <TextView android:text="المصاريف التشغيلية" android:layout_width="0dp"
+                            android:layout_height="wrap_content" android:layout_weight="1" android:textSize="14sp"/>
+                        <TextView android:id="@+id/tv_pl_total_expenses" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:textSize="14sp" android:textColor="#E53935"/>
+                    </LinearLayout>
+                    <View android:layout_width="match_parent" android:layout_height="2dp"
+                        android:background="#BDBDBD" android:layout_marginVertical="8dp"/>
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal" android:layout_marginBottom="8dp">
+                        <TextView android:text="صافي الربح / الخسارة" android:layout_width="0dp"
+                            android:layout_height="wrap_content" android:layout_weight="1"
+                            android:textSize="17sp" android:fontFamily="sans-serif-bold"/>
+                        <TextView android:id="@+id/tv_pl_net_profit" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:textSize="17sp"
+                            android:fontFamily="sans-serif-bold" android:textColor="#2E7D32"/>
+                    </LinearLayout>
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView android:text="هامش الربح الإجمالي" android:layout_width="0dp"
+                            android:layout_height="wrap_content" android:layout_weight="1" android:textSize="13sp" android:textColor="#757575"/>
+                        <TextView android:id="@+id/tv_pl_gross_margin" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:textSize="13sp" android:textColor="#1565C0"/>
+                    </LinearLayout>
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView android:text="هامش الربح الصافي" android:layout_width="0dp"
+                            android:layout_height="wrap_content" android:layout_weight="1" android:textSize="13sp" android:textColor="#757575"/>
+                        <TextView android:id="@+id/tv_pl_net_margin" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:textSize="13sp" android:textColor="#1565C0"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+    </ScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
