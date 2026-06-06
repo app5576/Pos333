@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layoutDirection="rtl"
+        android:background="#F5F7F9">
+
+        <!-- شريط التطبيق -->
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            app:elevation="0dp">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="#1976D2"
+                app:title="تفاصيل العميل"
+                app:titleTextColor="#FFFFFF"
+                app:navigationIcon="@drawable/ic_chevron_left"
+                app:navigationIconTint="#FFFFFF"
+                app:layout_scrollFlags="scroll|enterAlways"/>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingBottom="90dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <!-- صف علوي: معلومات العميل + شارة الرصيد في سطر واحد -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/card_customer_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="2dp"
+                        app:strokeWidth="0dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="12dp"
+                            android:gravity="center_vertical">
+
+                            <!-- صورة العميل -->
+                            <com.google.android.material.card.MaterialCardView
+                                android:id="@+id/card_customer_avatar"
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                app:cardCornerRadius="24dp"
+                                app:cardElevation="0dp"
+                                app:strokeWidth="0dp"
+                                app:cardBackgroundColor="#E3F2FD">
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:padding="10dp"
+                                    android:src="@drawable/ic_customers"
+                                    app:tint="#1976D2" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- بيانات العميل -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical"
+                                android:layout_marginStart="10dp">
+
+                                <TextView
+                                    android:id="@+id/tv_detail_customer_name"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    tools:text="أحمد محمد"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold"
+                                    android:textColor="#212121"/>
+
+                                <TextView
+                                    android:id="@+id/tv_detail_customer_phone"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    tools:text="+966 50 000 0000"
+                                    android:textSize="12sp"
+                                    android:textColor="#757575" />
+                                
+                                <!-- مخفيين لكن موجودين للحفاظ على الأسماء -->
+                                <TextView
+                                    android:id="@+id/tv_detail_customer_email"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:visibility="gone"/>
+
+                                <TextView
+                                    android:id="@+id/tv_detail_customer_address"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:visibility="gone"/>
+                            </LinearLayout>
+
+                            <!-- الرصيد + زر التعديل -->
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical">
+
+                                <LinearLayout
+                                    android:id="@+id/ll_balance_badge"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:background="@drawable/badge_background"
+                                    android:paddingHorizontal="10dp"
+                                    android:paddingVertical="6dp"
+                                    android:gravity="center">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="الرصيد: "
+                                        android:textColor="#757575"
+                                        android:textSize="12sp"/>
+
+                                    <TextView
+                                        android:id="@+id/tv_detail_customer_balance"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        tools:text="0.00"
+                                        android:textColor="#D32F2F"
+                                        android:textSize="13sp"
+                                        android:textStyle="bold"/>
+                                </LinearLayout>
+
+                                <ImageButton
+                                    android:id="@+id/btn_edit_customer_detail"
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:background="?attr/selectableItemBackgroundBorderless"
+                                    android:src="@drawable/ic_edit_pencil"
+                                    app:tint="#757575"/>
+                            </LinearLayout>
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- صف الفلترة بالتاريخ - سطر واحد -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/card_date_filter"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="1dp"
+                        app:strokeWidth="0dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="10dp"
+                            android:gravity="center_vertical"
+                            android:weightSum="10">
+
+                            <ImageView
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:src="@drawable/ic_calendar"
+                                app:tint="#1976D2"/>
+
+                            <TextView
+                                android:id="@+id/tv_date_from"
+                                android:layout_width="0dp"
+                                android:layout_height="40dp"
+                                android:layout_weight="3"
+                                android:layout_marginStart="6dp"
+                                android:layout_marginEnd="4dp"
+                                android:background="@drawable/bg_outlined_field"
+                                android:gravity="center"
+                                android:text="من تاريخ"
+                                android:textColor="#424242"
+                                android:textSize="12sp"
+                                android:clickable="true"
+                                android:focusable="true"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="→"
+                                android:textColor="#1976D2"
+                                android:textSize="14sp"/>
+
+                            <TextView
+                                android:id="@+id/tv_date_to"
+                                android:layout_width="0dp"
+                                android:layout_height="40dp"
+                                android:layout_weight="3"
+                                android:layout_marginStart="4dp"
+                                android:layout_marginEnd="6dp"
+                                android:background="@drawable/bg_outlined_field"
+                                android:gravity="center"
+                                android:text="إلى تاريخ"
+                                android:textColor="#424242"
+                                android:textSize="12sp"
+                                android:clickable="true"
+                                android:focusable="true"/>
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btn_apply_filter"
+                                android:layout_width="wrap_content"
+                                android:layout_height="36dp"
+                                android:text="تطبيق"
+                                app:backgroundTint="#1976D2"
+                                android:textSize="12sp"
+                                android:paddingHorizontal="12dp"/>
+
+                            <TextView
+                                android:id="@+id/tv_filter_active_badge"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/badge_background"
+                                android:text="نشط"
+                                android:textColor="#E91E63"
+                                android:textSize="10sp"
+                                android:paddingHorizontal="6dp"
+                                android:paddingVertical="2dp"
+                                android:layout_marginStart="6dp"
+                                android:visibility="gone"/>
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btn_clear_filter"
+                                style="@style/Widget.MaterialComponents.Button.TextButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="36dp"
+                                android:text="إلغاء"
+                                android:textColor="#757575"
+                                android:textSize="12sp"/>
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- ملخص سريع -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="3"
+                        android:layout_marginBottom="12dp">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="4dp"
+                            app:cardCornerRadius="8dp"
+                            app:cardElevation="0dp"
+                            app:strokeWidth="0dp"
+                            android:backgroundTint="#FFFFFF">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:padding="8dp"
+                                android:gravity="center">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="العمليات"
+                                    android:textColor="#757575"
+                                    android:textSize="10sp"/>
+                                <TextView
+                                    android:id="@+id/tv_summary_count"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    tools:text="0"
+                                    android:textStyle="bold"
+                                    android:textColor="#212121"
+                                    android:textSize="14sp"/>
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginHorizontal="4dp"
+                            app:cardCornerRadius="8dp"
+                            app:cardElevation="0dp"
+                            app:strokeWidth="0dp"
+                            android:backgroundTint="#FFFFFF">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:padding="8dp"
+                                android:gravity="center">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="المجموع"
+                                    android:textColor="#757575"
+                                    android:textSize="10sp"/>
+                                <TextView
+                                    android:id="@+id/tv_summary_total"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    tools:text="0.00"
+                                    android:textStyle="bold"
+                                    android:textColor="#D32F2F"
+                                    android:textSize="14sp"/>
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="4dp"
+                            app:cardCornerRadius="8dp"
+                            app:cardElevation="0dp"
+                            app:strokeWidth="0dp"
+                            android:backgroundTint="#FFFFFF">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:padding="8dp"
+                                android:gravity="center">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="المديونية"
+                                    android:textColor="#757575"
+                                    android:textSize="10sp"/>
+                                <TextView
+                                    android:id="@+id/tv_total_credit"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    tools:text="0.00"
+                                    android:textStyle="bold"
+                                    android:textColor="#D32F2F"
+                                    android:textSize="14sp"/>
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+                    </LinearLayout>
+
+                    <!-- تبويبات الفواتير والسندات -->
+                    <com.google.android.material.tabs.TabLayout
+                        android:id="@+id/tabLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        app:tabIndicatorColor="#1976D2"
+                        app:tabSelectedTextColor="#1976D2"
+                        app:tabTextColor="#757575"
+                        app:tabMode="fixed"
+                        app:tabGravity="fill"
+                        android:layout_marginBottom="8dp">
+                        <com.google.android.material.tabs.TabItem android:text="الفواتير" />
+                        <com.google.android.material.tabs.TabItem android:text="السندات المالية" />
+                    </com.google.android.material.tabs.TabLayout>
+
+                    <!-- نطاق الفلتر -->
+                    <TextView
+                        android:id="@+id/tv_filter_range_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="01/01/2026 - 30/01/2026"
+                        android:textSize="11sp"
+                        android:textColor="#1976D2"
+                        android:layout_marginBottom="8dp"
+                        android:visibility="gone"/>
+
+                    <!-- RecyclerView للفواتير والسندات -->
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_customer_invoices"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="false"/>
+
+                    <!-- رسالة فارغة -->
+                    <TextView
+                        android:id="@+id/tv_empty_invoices"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="لا توجد بيانات متاحة"
+                        android:gravity="center"
+                        android:padding="32dp"
+                        android:textSize="14sp"
+                        android:textColor="#9E9E9E"
+                        android:visibility="gone"/>
+
+                    <!-- TextView مخفي للعنوان القديم -->
+                    <TextView
+                        android:id="@+id/tv_history_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"/>
+
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <!-- الشريط السفلي -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            app:cardElevation="12dp"
+            app:cardCornerRadius="0dp"
+            android:backgroundTint="#FFFFFF">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="8dp"
+                android:gravity="center_vertical">
+
+                <ImageButton
+                    android:id="@+id/btn_sync"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_sync"
+                    app:tint="#1976D2"
+                    android:contentDescription="مزامنة"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="0.2"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_generate_pdf_report"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="42dp"
+                    android:text="كشف حساب"
+                    app:icon="@drawable/ic_print"
+                    app:strokeColor="#1976D2"
+                    android:textColor="#1976D2"
+                    android:textSize="12sp"/>
+
+                <View
+                    android:layout_width="8dp"
+                    android:layout_height="1dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_make_payment"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="42dp"
+                    android:text="سند قبض"
+                    app:icon="@drawable/ic_cashbox"
+                    app:backgroundTint="#388E3C"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp"/>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
